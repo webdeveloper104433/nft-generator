@@ -24,16 +24,21 @@ const override = css`
   display: block;
   margin: 0 auto;
   border-color: red;
+  top: 150px;
 `;
 
 const spinner = css`
-  top: 0;
+  top: 150;
   z-index: 100;
   width: 100%;
   height: 100%;
   /* display: none; */
   background: rgba(0,0,0,0.6);
 `;
+const imageStyle = {
+  width: '300px',
+  height: '300px'
+};
 
 
 
@@ -42,7 +47,7 @@ export default function Home() {
   const [minted, setMinted] = useState(0);
   const [total, setTotal] = useState(0);
 
-  let [loading, setLoading] = useState(true);
+  let [loading, setLoading] = useState(false);
   let [color, setColor] = useState("#ffffff");
   
   useEffect(async () => {
@@ -62,6 +67,7 @@ export default function Home() {
 }
 
   async function mint() {
+    setLoading(true);
     var res = await axios.get('api/getImage');
     const url = res.data.image_url;
     const mintIndex = res.data.mintIndex;
@@ -81,6 +87,7 @@ export default function Home() {
 
     await axios.post('api/confirmMinted', {mintIndex});
     await getMintCount();
+    setLoading(false);
     
   }
 
@@ -93,14 +100,16 @@ export default function Home() {
                 <div className="image-over">
                   <a href="#">
                     {
-                      loading (
-                        <DotLoader color={color} loading={loading} css={override} size={50} />
+                      loading && (
+                        <div style={imageStyle} >
+                          <DotLoader color={color} loading={loading} css={override} size={50} />
+                        </div>
 
                       )
                     }
                     {
-                      !loading (
-                        <img className="card-img-top" src={"rnds/" + imageName + '.png'} alt="" />
+                      !loading && (
+                        <img style={imageStyle} className="card-img-top" src={"rnds/" + imageName + '.png'} alt="" />
                       )
                     }
                     
@@ -120,7 +129,16 @@ export default function Home() {
                       <span>AmountLeft: {total-minted}</span>
                     </div>
                     <div className="col-12">
+                    {
+                      loading && (
+                        <span className="btn w-100 mt-3 mt-sm-4">loading....</span>
+                      )
+                    }
+                    {
+                      !loading && (
                         <button className="btn w-100 mt-3 mt-sm-4" type="button" onClick={mint}>Mint</button>
+                      )
+                    }
                     </div>
                   </div>
                 </div>
