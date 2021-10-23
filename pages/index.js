@@ -68,26 +68,31 @@ export default function Home() {
 
   async function mint() {
     setLoading(true);
-    var res = await axios.get('api/getImage');
-    const url = res.data.image_url;
-    const mintIndex = res.data.mintIndex;
+    try {
+      var res = await axios.get('api/getImage');
+      const url = res.data.image_url;
+      const mintIndex = res.data.mintIndex;
 
-    const web3Modal = new Web3Modal()
-    const connection = await web3Modal.connect()
-    const provider = new ethers.providers.Web3Provider(connection)    
-    const signer = provider.getSigner()
-    
-    let contract = new ethers.Contract(nftaddress, NFT.abi, signer)
-    
-    let transaction = await contract.createToken(url)
-    let tx = await transaction.wait()
-    let event = tx.events[0]
-    let value = event.args[2]
-    let tokenId = value.toNumber()
+      const web3Modal = new Web3Modal()
+      const connection = await web3Modal.connect()
+      const provider = new ethers.providers.Web3Provider(connection)    
+      const signer = provider.getSigner()
+      
+      let contract = new ethers.Contract(nftaddress, NFT.abi, signer)
+      
+      let transaction = await contract.createToken(url)
+      let tx = await transaction.wait()
+      let event = tx.events[0]
+      let value = event.args[2]
+      let tokenId = value.toNumber()
 
-    await axios.post('api/confirmMinted', {mintIndex});
-    await getMintCount();
-    setLoading(false);
+      await axios.post('api/confirmMinted', {mintIndex});
+      await getMintCount();
+      setLoading(false);
+    } catch (e) {
+      await getMintCount();
+      setLoading(false);
+    }
     
   }
 
