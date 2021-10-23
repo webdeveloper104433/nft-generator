@@ -1,7 +1,6 @@
-var fs = require('fs');
+const fs = require('fs');
 const FormData = require('form-data');
 import axios from "axios";
-import { total_count } from "../../config";
 
 function getRndInteger(min, max) {
     return Math.floor(Math.random() * (max - min)) + min;
@@ -9,7 +8,7 @@ function getRndInteger(min, max) {
 
 
 export default async function handler(req, res) {
-  const mintIndex = getRndInteger(0, total_count);
+  const mintIndex = getRndInteger(0, 50);
   const url = 'img/output/'+ mintIndex +'.png';
 
   const file = fs.createReadStream(url);
