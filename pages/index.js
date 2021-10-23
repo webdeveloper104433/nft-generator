@@ -131,7 +131,7 @@ export default function Home() {
                       <span>AmountMinted: {minted}</span>
                     </div>
                     <div className="seller d-flex align-items-center my-3">
-                      <span>AmountLeft: {total-minted}</span>
+                      <span>AmountLeft: {50-minted}</span>
                     </div>
                     <div className="col-12">
                     {

@@ -1,4 +1,5 @@
-    export const nftmarketaddress = "0x6Ca92b80460Aa50f32446658401c9835d2B7C946"
-    export const nftaddress = "0x24e41FF49A6C95FB00eBA3a772b8154bD7A103bD"
-    export const mytokenaddress = "0x2211361F123dEf3411b8ee7207573Ba521F8bf8f"
-    export const total_count = 666;
+
+    export const nftmarketaddress = "0x9A676e781A523b5d0C0e43731313A708CB607508"
+    export const nftaddress = "0x0B306BF915C4d645ff596e518fAf3F9669b97016"
+    export const mytokenaddress = "0x959922bE3CAee4b8Cd9a407cc3ac1C251C2007B1"
+  

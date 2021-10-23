@@ -1,7 +1,7 @@
 var fs = require('fs');
 const util = require('util');
 const readFile = util.promisify(fs.readFile);
-import { total_count } from "../../config";
+// import { total_count } from "../../config";
 
 export default async function handler(req, res) {
     var content = await readFile('img/total', 'utf8');
@@ -9,7 +9,7 @@ export default async function handler(req, res) {
     var _totals = totals.filter((total) => (total==-1))
     
     res.status(200).json({
-        total: total_count,
+        total: 50,
         minted: _totals.length
     })
 }
