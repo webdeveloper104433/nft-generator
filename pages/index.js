@@ -68,6 +68,7 @@ export default function Home() {
 
   async function mint() {
     setLoading(true);
+    try {
       var res = await axios.get('api/getImage');
       const url = res.data.image_url;
       const mintIndex = res.data.mintIndex;
@@ -88,6 +89,11 @@ export default function Home() {
       await axios.post('api/confirmMinted', {mintIndex});
       await getMintCount();
       setLoading(false);
+    } catch (e) {
+      await getMintCount();
+      setLoading(false);
+    }
+    
   }
 
   return (
